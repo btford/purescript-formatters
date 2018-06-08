@@ -21,7 +21,7 @@ import Data.Maybe (Maybe(..), fromMaybe, isJust)
 import Data.Traversable (for)
 import Data.Either (Either, either)
 import Data.Int as Int
-import Data.String as Str
+import Data.String.CodeUnits as Str
 
 import Data.Formatter.Parser.Utils (runP)
 import Data.Formatter.Internal (foldDigits, repeat)
@@ -238,5 +238,5 @@ unformatNumber pattern str =
 -- good way to extract number back to show.
 formatOrShowNumber ∷ String → Number → String
 formatOrShowNumber patter number =
-  either (const $ show number) id
+  either (const $ show number) identity
   $ formatNumber patter number
