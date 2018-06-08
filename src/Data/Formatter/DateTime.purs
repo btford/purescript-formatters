@@ -19,7 +19,7 @@ import Control.Alternative (class Alternative)
 import Control.Apply (applySecond, lift2)
 import Control.Lazy as Z
 import Control.Monad.Reader.Trans (ReaderT, runReaderT, ask)
-import Control.Monad.State (State, modify, put, runState)
+import Control.Monad.State (State, modify_, put, runState)
 import Control.Monad.Trans.Class (lift)
 import Data.Array as Array
 import Data.Date as D
@@ -38,7 +38,7 @@ import Data.List as List
 import Data.Maybe (Maybe(..), maybe, fromMaybe)
 import Data.Newtype (unwrap)
 import Data.Ord (abs)
-import Data.String as Str
+import Data.String.CodeUnits as Str
 import Data.Time as T
 import Data.Time.Duration as Dur
 import Data.Tuple (Tuple(..))
@@ -393,7 +393,7 @@ unformatCommandParser = case _ of
   modifyWithParser ∷ ∀ s' s x. (s → Maybe x → s) → P.ParserT s' (State s) x → P.ParserT s' (State s) Unit
   modifyWithParser f p = do
     v ← p
-    lift $ modify (flip f (Just v))
+    lift $ modify_ (flip f (Just v))
 
 unformatParser ∷ ∀ m. Monad m ⇒ Formatter → P.ParserT String m DT.DateTime
 unformatParser f = do
